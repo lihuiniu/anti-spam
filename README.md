@@ -7,15 +7,23 @@ This project provides a FastAPI REST API to detect spam using:
 - Redis 8.0 caching and rate limiting support
 
 ## Architecture
+See the `docs/project_structure.png` for the project structure diagram.
+See the `docs/user_flow.png` for the user flow diagram.
 
 ```mermaid
 graph TD
   A[User Request] --> B[FastAPI Anti-Spam API]
-  B --> C{Spam Detection}
-  C --> D[ML Filter (Naive Bayes)]
-  C --> E[LLM Filter (GPT/OpenAI)]
+
+  subgraph Spam_Detection
+    direction TB
+    C1["ML Filter (Naive Bayes)"]
+    C2["LLM Filter (GPT/OpenAI)"]
+  end
+
+  B --> C1
+  B --> C2
   B --> F[Redis 8.0 Cache]
-  F --> B
+  F -.-> B
 ```
 
 ## Run Locally
