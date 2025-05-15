@@ -1,0 +1,21 @@
+replicaCount: 1
+
+image:
+  repository: yourdockerhub/anti-spam-api
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+redis:
+  enabled: true
+  image: bitnami/redis:8.0
+  cluster:
+    enabled: false
+
+env:
+  OPENAI_API_KEY: ""
+
+resources: {}
